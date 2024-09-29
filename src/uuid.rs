@@ -16,7 +16,7 @@ impl<'de> Deserialize<'de> for CollectionName {
         if let Some((a, b)) = value.split_once(":") {
             Ok(Self {
                 id: b.to_string(),
-                ns: Some(a.to_string()),
+                ns: Some(a.chars().skip(1).collect::<String>()),
             })
         } else {
             Ok(Self {
