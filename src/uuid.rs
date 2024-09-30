@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
+#[derive(Clone)]
 pub struct CollectionName {
     pub id: String,
     pub ns: Option<String>,
@@ -16,7 +17,7 @@ impl<'de> Deserialize<'de> for CollectionName {
         if let Some((a, b)) = value.split_once(":") {
             Ok(Self {
                 id: b.to_string(),
-                ns: Some(a.chars().skip(1).collect::<String>()),
+                ns: Some(a.to_string()),
             })
         } else {
             Ok(Self {
