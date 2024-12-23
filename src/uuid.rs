@@ -56,6 +56,15 @@ pub enum UuidType {
     Addon(Uuid),
 }
 
+impl UuidType {
+    pub fn get_uuid(&self) -> Uuid {
+        match *self {
+            UuidType::Site(uuid) => uuid,
+            UuidType::Addon(uuid) => uuid,
+        }
+    }
+}
+
 impl<'de> Deserialize<'de> for UuidType {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
