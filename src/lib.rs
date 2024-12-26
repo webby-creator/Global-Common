@@ -1,3 +1,4 @@
+pub mod filter;
 pub mod id;
 pub mod response;
 pub mod schema;
