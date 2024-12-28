@@ -32,6 +32,7 @@ pub struct CmsRowResponse {
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct SchemaTag {
+    pub id: i32,
     pub row_id: String,
 
     pub name: String,

@@ -430,8 +430,12 @@ impl SchematicFieldType {
             }
             Self::MultiDocument => todo!("Multi Document"),
             Self::Tags => SchematicFieldValue::ListNumber(received.try_as_list_number()?),
-            Self::Array => SchematicFieldValue::Text(received.try_as_text()?),
-            Self::Object => SchematicFieldValue::Text(received.try_as_text()?),
+            Self::Array => {
+                SchematicFieldValue::Array(serde_json::from_str(&received.try_as_text()?)?)
+            }
+            Self::Object => {
+                SchematicFieldValue::Object(serde_json::from_str(&received.try_as_text()?)?)
+            }
         })
     }
 
