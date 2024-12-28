@@ -626,7 +626,7 @@ impl SchematicFieldValue {
 }
 
 #[cfg(feature = "sqlx")]
-mod _sqlx {
+const _: () = {
     use std::result::Result;
 
     use sqlx::{
@@ -636,8 +636,6 @@ mod _sqlx {
         sqlite::{SqliteRow, SqliteTypeInfo},
         Decode, Encode, FromRow, Row, Sqlite, Type,
     };
-
-    use super::SchematicFieldType;
 
     impl FromRow<'_, SqliteRow> for SchematicFieldType {
         fn from_row(row: &SqliteRow) -> Result<Self, sqlx::Error> {
@@ -662,4 +660,4 @@ mod _sqlx {
             <i32 as Type<Sqlite>>::type_info()
         }
     }
-}
+};
