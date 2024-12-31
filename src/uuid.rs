@@ -14,6 +14,7 @@ impl<'de> Deserialize<'de> for CollectionName {
     {
         let value = String::deserialize(deserializer)?;
 
+        // TODO: Also parse Local Namespaces like "Forms/Name" ??
         if let Some((a, b)) = value.split_once(":") {
             Ok(Self {
                 id: b.to_string(),
@@ -51,6 +52,7 @@ impl std::fmt::Display for CollectionName {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum UuidType {
     Site(Uuid),
     Addon(Uuid),
