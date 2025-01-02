@@ -28,8 +28,8 @@ pub enum FilterConditionType {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum FilterValue {
-    Text(String),
     Number(Number),
+    Text(String),
     IdList(Vec<String>),
     Range((Number, Number)),
 }
