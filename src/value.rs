@@ -29,6 +29,14 @@ impl Number {
             Number::Float(v) => v,
         }
     }
+
+    pub fn convert_i64(self) -> i64 {
+        match self {
+            Number::Byte(v) => v as i64,
+            Number::Integer(v) => v,
+            Number::Float(v) => v as i64,
+        }
+    }
 }
 
 impl From<u8> for Number {
@@ -260,5 +268,53 @@ impl SimpleValue {
         } else {
             bail!("Not Number List")
         }
+    }
+}
+
+impl From<String> for SimpleValue {
+    fn from(value: String) -> Self {
+        Self::Text(value)
+    }
+}
+
+impl From<Number> for SimpleValue {
+    fn from(value: Number) -> Self {
+        Self::Number(value)
+    }
+}
+
+impl From<bool> for SimpleValue {
+    fn from(value: bool) -> Self {
+        Self::Boolean(value)
+    }
+}
+
+impl From<OffsetDateTime> for SimpleValue {
+    fn from(value: OffsetDateTime) -> Self {
+        Self::DateTime(value)
+    }
+}
+
+impl From<Date> for SimpleValue {
+    fn from(value: Date) -> Self {
+        Self::Date(value)
+    }
+}
+
+impl From<Time> for SimpleValue {
+    fn from(value: Time) -> Self {
+        Self::Time(value)
+    }
+}
+
+impl From<Vec<String>> for SimpleValue {
+    fn from(value: Vec<String>) -> Self {
+        Self::ListString(value)
+    }
+}
+
+impl From<Vec<Number>> for SimpleValue {
+    fn from(value: Vec<Number>) -> Self {
+        Self::ListNumber(value)
     }
 }

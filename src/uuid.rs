@@ -7,6 +7,22 @@ pub struct CollectionName {
     pub ns: Option<String>,
 }
 
+impl From<&str> for CollectionName {
+    fn from(value: &str) -> Self {
+        if let Some((a, b)) = value.split_once(":") {
+            Self {
+                id: b.to_string(),
+                ns: Some(a.to_string()),
+            }
+        } else {
+            Self {
+                id: value.to_string(),
+                ns: None,
+            }
+        }
+    }
+}
+
 impl<'de> Deserialize<'de> for CollectionName {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -59,10 +75,27 @@ pub enum UuidType {
 }
 
 impl UuidType {
+    pub fn is_site(&self) -> bool {
+        matches!(self, UuidType::Site(_))
+    }
+
+    pub fn is_addon(&self) -> bool {
+        matches!(self, UuidType::Addon(_))
+    }
+
     pub fn get_uuid(&self) -> Uuid {
         match *self {
             UuidType::Site(uuid) => uuid,
             UuidType::Addon(uuid) => uuid,
+        }
+    }
+}
+
+impl ToString for UuidType {
+    fn to_string(&self) -> String {
+        match self {
+            UuidType::Site(uuid) => format!("s:{uuid}"),
+            UuidType::Addon(uuid) => format!("a:{uuid}"),
         }
     }
 }
@@ -95,9 +128,6 @@ impl Serialize for UuidType {
     where
         S: serde::Serializer,
     {
-        match self {
-            UuidType::Site(uuid) => format!("s:{uuid}").serialize(serializer),
-            UuidType::Addon(uuid) => format!("a:{uuid}").serialize(serializer),
-        }
+        self.to_string().serialize(serializer)
     }
 }
