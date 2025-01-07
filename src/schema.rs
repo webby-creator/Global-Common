@@ -394,21 +394,37 @@ impl SchematicFieldType {
                 v => v.parse()?,
             }),
             // TODO: Optional seconds
-            Self::DateTime => SchematicFieldValue::DateTime(
-                PrimitiveDateTime::parse(
+            Self::DateTime => SchematicFieldValue::DateTime({
+                if let Ok(v) = PrimitiveDateTime::parse(
                     &received.any_as_text()?,
                     format_description!("[year]-[month]-[day]T[hour]:[minute]"),
-                )?
-                .assume_utc(),
-            ),
+                ) {
+                    v.assume_utc()
+                } else {
+                    PrimitiveDateTime::parse(
+                        &received.any_as_text()?,
+                        format_description!("[year]-[month]-[day]T[hour]:[minute]:[second]"),
+                    )?
+                    .assume_utc()
+                }
+            }),
             Self::Date => SchematicFieldValue::Date(Date::parse(
                 &received.any_as_text()?,
                 format_description!("[year]-[month]-[day]"),
             )?),
-            Self::Time => SchematicFieldValue::Time(Time::parse(
-                &received.any_as_text()?,
-                format_description!("[hour]:[minute]:[second]"),
-            )?),
+            Self::Time => SchematicFieldValue::Time({
+                if let Ok(v) = Time::parse(
+                    &received.any_as_text()?,
+                    format_description!("[hour]:[minute]:[second]"),
+                ) {
+                    v
+                } else {
+                    Time::parse(
+                        &received.any_as_text()?,
+                        format_description!("[hour]:[minute]:[second].[subsecond]"),
+                    )?
+                }
+            }),
             Self::RichContent => SchematicFieldValue::Text(received.try_as_text()?),
             Self::RichText => SchematicFieldValue::Text(received.try_as_text()?),
             Self::Reference => SchematicFieldValue::Reference(received.try_as_text()?.parse()?),
@@ -605,7 +621,7 @@ impl SchematicFieldValue {
         if let Self::ListNumber(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to String List"))?;
+            return Err(anyhow!("Unable to convert to Number List"))?;
         }
     }
 
@@ -613,7 +629,7 @@ impl SchematicFieldValue {
         if let Self::MultiReference(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to String List"))?;
+            return Err(anyhow!("Unable to convert to Reference List"))?;
         }
     }
 
@@ -621,7 +637,15 @@ impl SchematicFieldValue {
         if let Self::Array(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to String List"))?;
+            return Err(anyhow!("Unable to convert to Object Array"))?;
+        }
+    }
+
+    pub fn try_as_object(self) -> Result<serde_json::Value> {
+        if let Self::Object(v) = self {
+            Ok(v)
+        } else {
+            return Err(anyhow!("Unable to convert to Object"))?;
         }
     }
 }

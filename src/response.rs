@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
+use uuid::Uuid;
 
 use crate::{
     schema::{SchemaFieldMap, SchemaView, SchematicFieldKey, SchematicPermissions},
@@ -10,6 +11,15 @@ use crate::{
 };
 
 // CMS
+
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CmsCreateResponse {
+    pub id: String,
+    pub name: String,
+    pub namespace: Option<String>,
+    pub data_ids: Option<Vec<Uuid>>,
+}
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

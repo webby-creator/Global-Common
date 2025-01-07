@@ -271,6 +271,12 @@ impl SimpleValue {
     }
 }
 
+impl<'a> From<&'a str> for SimpleValue {
+    fn from(value: &'a str) -> Self {
+        Self::Text(value.to_string())
+    }
+}
+
 impl From<String> for SimpleValue {
     fn from(value: String) -> Self {
         Self::Text(value)
@@ -280,6 +286,24 @@ impl From<String> for SimpleValue {
 impl From<Number> for SimpleValue {
     fn from(value: Number) -> Self {
         Self::Number(value)
+    }
+}
+
+impl From<i64> for SimpleValue {
+    fn from(value: i64) -> Self {
+        Self::Number(Number::Integer(value))
+    }
+}
+
+impl From<i32> for SimpleValue {
+    fn from(value: i32) -> Self {
+        Self::Number(Number::Integer(value as i64))
+    }
+}
+
+impl From<u8> for SimpleValue {
+    fn from(value: u8) -> Self {
+        Self::Number(Number::Byte(value))
     }
 }
 
@@ -316,5 +340,17 @@ impl From<Vec<String>> for SimpleValue {
 impl From<Vec<Number>> for SimpleValue {
     fn from(value: Vec<Number>) -> Self {
         Self::ListNumber(value)
+    }
+}
+
+impl From<Vec<serde_json::Value>> for SimpleValue {
+    fn from(value: Vec<serde_json::Value>) -> Self {
+        Self::ArrayUnknown(value)
+    }
+}
+
+impl From<serde_json::Value> for SimpleValue {
+    fn from(value: serde_json::Value) -> Self {
+        Self::ObjectUnknown(value)
     }
 }
