@@ -271,6 +271,23 @@ impl SimpleValue {
     }
 }
 
+impl Display for SimpleValue {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        match self {
+            SimpleValue::Text(v) => v.fmt(f),
+            SimpleValue::Number(number) => number.fmt(f),
+            SimpleValue::Boolean(v) => v.fmt(f),
+            SimpleValue::DateTime(offset_date_time) => offset_date_time.fmt(f),
+            SimpleValue::Date(date) => date.fmt(f),
+            SimpleValue::Time(time) => time.fmt(f),
+            SimpleValue::ListString(vec) => serde_json::to_string(vec).unwrap().fmt(f),
+            SimpleValue::ListNumber(vec) => serde_json::to_string(vec).unwrap().fmt(f),
+            SimpleValue::ArrayUnknown(vec) => serde_json::to_string(vec).unwrap().fmt(f),
+            SimpleValue::ObjectUnknown(value) => serde_json::to_string(value).unwrap().fmt(f),
+        }
+    }
+}
+
 impl<'a> From<&'a str> for SimpleValue {
     fn from(value: &'a str) -> Self {
         Self::Text(value.to_string())
