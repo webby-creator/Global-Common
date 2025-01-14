@@ -393,17 +393,23 @@ impl SchematicFieldType {
                 "0" | "off" | "false" => false,
                 v => v.parse()?,
             }),
-            // TODO: Optional seconds
             Self::DateTime => SchematicFieldValue::DateTime({
                 if let Ok(v) = PrimitiveDateTime::parse(
                     &received.any_as_text()?,
                     format_description!("[year]-[month]-[day]T[hour]:[minute]"),
                 ) {
                     v.assume_utc()
+                } else if let Ok(v) = PrimitiveDateTime::parse(
+                    &received.any_as_text()?,
+                    format_description!("[year]-[month]-[day]T[hour]:[minute]:[second]"),
+                ) {
+                    v.assume_utc()
                 } else {
                     PrimitiveDateTime::parse(
                         &received.any_as_text()?,
-                        format_description!("[year]-[month]-[day]T[hour]:[minute]:[second]"),
+                        format_description!(
+                            "[year]-[month]-[day]T[hour]:[minute]:[second].[subsecond]"
+                        ),
                     )?
                     .assume_utc()
                 }
