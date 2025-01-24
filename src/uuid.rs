@@ -1,5 +1,9 @@
+use std::str::FromStr;
+
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+
+use crate::id::{AddonUuid, WebsitePublicId};
 
 #[derive(Debug, Clone)]
 pub struct CollectionName {
@@ -70,8 +74,8 @@ impl std::fmt::Display for CollectionName {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum UuidType {
-    Site(Uuid),
-    Addon(Uuid),
+    Site(WebsitePublicId),
+    Addon(AddonUuid),
 }
 
 impl UuidType {
@@ -85,8 +89,8 @@ impl UuidType {
 
     pub fn get_uuid(&self) -> Uuid {
         match *self {
-            UuidType::Site(uuid) => uuid,
-            UuidType::Addon(uuid) => uuid,
+            UuidType::Site(uuid) => *uuid,
+            UuidType::Addon(uuid) => *uuid,
         }
     }
 }
@@ -107,15 +111,19 @@ impl<'de> Deserialize<'de> for UuidType {
     {
         let value = String::deserialize(deserializer)?;
 
-        if let Ok(uuid) = Uuid::parse_str(&value) {
+        if let Ok(uuid) = WebsitePublicId::from_str(&value) {
             Ok(Self::Site(uuid))
         } else {
             let bytes = value.as_bytes();
 
             if bytes[0] == b's' {
-                Ok(Self::Site(Uuid::try_parse_ascii(&bytes[2..]).unwrap()))
+                Ok(Self::Site(WebsitePublicId::from(
+                    Uuid::try_parse_ascii(&bytes[2..]).unwrap(),
+                )))
             } else if bytes[0] == b'a' {
-                Ok(Self::Addon(Uuid::try_parse_ascii(&bytes[2..]).unwrap()))
+                Ok(Self::Addon(AddonUuid::from(
+                    Uuid::try_parse_ascii(&bytes[2..]).unwrap(),
+                )))
             } else {
                 Err(serde::de::Error::custom("Unknown"))
             }

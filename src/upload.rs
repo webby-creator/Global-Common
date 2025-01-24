@@ -3,13 +3,15 @@ use time::OffsetDateTime;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct WebsiteUpload {
+    // TODO: This shouldn't be a reference to the b2 store path
+    pub public_id: String,
+
     /// Where the upload is from.
     ///
     /// None = Main Website
     /// Some() = Addon
     pub namespace: Option<String>,
 
-    pub public_id: String,
     pub upload_type: String,
     pub display_name: String,
     pub created_at: OffsetDateTime,

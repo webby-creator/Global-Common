@@ -2,9 +2,9 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
-use uuid::Uuid;
 
 use crate::{
+    id::{FormPublicId, SchemaDataPublicId},
     schema::{SchemaFieldMap, SchemaView, SchematicFieldKey, SchematicPermissions},
     upload::WebsiteUpload,
     value::SimpleValue,
@@ -18,7 +18,7 @@ pub struct CmsCreateResponse {
     pub id: String,
     pub name: String,
     pub namespace: Option<String>,
-    pub data_ids: Option<Vec<Uuid>>,
+    pub data_ids: Option<Vec<SchemaDataPublicId>>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -28,7 +28,7 @@ pub struct CmsResponse {
     pub tags: Vec<SchemaTag>,
 
     // Optional Extensions
-    pub form_id: Option<String>,
+    pub form_id: Option<FormPublicId>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -42,7 +42,7 @@ pub struct CmsRowResponse {
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct SchemaTag {
-    pub id: i32,
+    pub id: i64,
     pub row_id: String,
 
     pub name: String,

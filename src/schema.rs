@@ -14,7 +14,10 @@ use time::{macros::format_description, Date, OffsetDateTime, PrimitiveDateTime, 
 use url::Url;
 use uuid::Uuid;
 
-use crate::value::{Number, SimpleValue};
+use crate::{
+    id::WebsitePublicId,
+    value::{Number, SimpleValue},
+};
 
 pub type SchemaFieldMap = HashMap<SchematicFieldKey, SchematicField>;
 
@@ -33,7 +36,7 @@ pub struct Schematic {
     /// The operations allowed on the schema.
     pub allowed_operations: Vec<String>,
     pub is_deleted: bool,
-    pub owner_app_id: String,
+    pub owner_app_id: WebsitePublicId,
     pub fields: SchemaFieldMap,
     // pub storage: String,
     /// Time to live
@@ -517,6 +520,7 @@ pub enum SchematicFieldValue {
     DateTime(OffsetDateTime),
     Date(Date),
     Time(Time),
+    // TODO: WebsiteUploadLinkPublicId ??
     Reference(Uuid),
     MultiReference(Vec<Uuid>),
     ListString(Vec<String>),
@@ -664,31 +668,34 @@ const _: () = {
         database::{HasArguments, HasValueRef},
         encode::IsNull,
         error::BoxDynError,
-        sqlite::{SqliteRow, SqliteTypeInfo},
-        Decode, Encode, FromRow, Row, Sqlite, Type,
+        postgres::{PgRow, PgTypeInfo},
+        Decode, Encode, FromRow, Postgres, Row, Type,
     };
 
-    impl FromRow<'_, SqliteRow> for SchematicFieldType {
-        fn from_row(row: &SqliteRow) -> Result<Self, sqlx::Error> {
+    impl FromRow<'_, PgRow> for SchematicFieldType {
+        fn from_row(row: &PgRow) -> Result<Self, sqlx::Error> {
             Ok(Self::try_from(row.try_get::<i32, _>(0)?).unwrap())
         }
     }
 
-    impl Encode<'_, Sqlite> for SchematicFieldType {
-        fn encode_by_ref(&self, buf: &mut <Sqlite as HasArguments<'_>>::ArgumentBuffer) -> IsNull {
-            Encode::<Sqlite>::encode_by_ref(&(*self as i32), buf)
+    impl Encode<'_, Postgres> for SchematicFieldType {
+        fn encode_by_ref(
+            &self,
+            buf: &mut <Postgres as HasArguments<'_>>::ArgumentBuffer,
+        ) -> IsNull {
+            Encode::<Postgres>::encode_by_ref(&(*self as i32), buf)
         }
     }
 
-    impl Decode<'_, Sqlite> for SchematicFieldType {
-        fn decode(value: <Sqlite as HasValueRef<'_>>::ValueRef) -> Result<Self, BoxDynError> {
-            Ok(Self::try_from(<i32 as Decode<Sqlite>>::decode(value)?)?)
+    impl Decode<'_, Postgres> for SchematicFieldType {
+        fn decode(value: <Postgres as HasValueRef<'_>>::ValueRef) -> Result<Self, BoxDynError> {
+            Ok(Self::try_from(<i32 as Decode<Postgres>>::decode(value)?)?)
         }
     }
 
-    impl Type<Sqlite> for SchematicFieldType {
-        fn type_info() -> SqliteTypeInfo {
-            <i32 as Type<Sqlite>>::type_info()
+    impl Type<Postgres> for SchematicFieldType {
+        fn type_info() -> PgTypeInfo {
+            <i32 as Type<Postgres>>::type_info()
         }
     }
 };
