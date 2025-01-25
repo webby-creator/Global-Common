@@ -66,7 +66,7 @@ pub struct PublicSchema {
 
     pub permissions: SchematicPermissions,
 
-    pub version: f64,
+    pub version: f32,
 
     pub allowed_operations: Vec<String>,
 
