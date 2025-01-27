@@ -50,10 +50,12 @@ pub struct SchemaTag {
 }
 
 #[derive(Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct BasicCmsInfo {
     pub id: String,
     pub name: String,
     pub namespace: Option<String>,
+    pub is_single: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -69,6 +71,7 @@ pub struct PublicSchema {
     pub version: f32,
 
     pub allowed_operations: Vec<String>,
+    pub is_single: bool,
 
     pub fields: SchemaFieldMap,
 

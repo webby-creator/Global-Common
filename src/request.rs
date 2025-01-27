@@ -10,9 +10,11 @@ use crate::{
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct CmsCreate {
     pub id: CollectionName,
     pub name: String,
+    pub is_single: bool,
     #[serde(flatten)]
     pub update: CmsUpdate,
     pub columns: Option<Vec<CmsCreateDataColumn>>,
