@@ -530,6 +530,11 @@ pub enum SchematicFieldValue {
     Object(serde_json::Value),
 }
 
+// TODO: Casting - remove from SchematicFieldValue wrapper
+// SchematicFieldValue::cast<V>() -> Result<V>
+// Cast non-vec items to vec.
+// SchematicFieldValue::cast_to_vec<V>() -> Result<V>
+
 impl SchematicFieldValue {
     pub fn try_as_reference(self) -> Result<Uuid> {
         if let Self::Reference(v) = self {
