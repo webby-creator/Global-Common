@@ -75,6 +75,7 @@ checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
 [[package]]
 name = "api"
 version = "0.1.0"
+source = "git+https://github.com/Its-its/WebsiteCreator#2998c73f022f8db19318a595c8b8d6188b7cc9f0"
 dependencies = [
  "common",
  "eyre",
@@ -318,6 +319,7 @@ checksum = "54261aba646433cb567ec89844be4c4825ca92a4f8afba52fc4dd88436e31bbd"
 [[package]]
 name = "common"
 version = "0.1.0"
+source = "git+https://github.com/Its-its/WebsiteCreator#2998c73f022f8db19318a595c8b8d6188b7cc9f0"
 dependencies = [
  "bitflags",
  "eyre",
@@ -2028,6 +2030,7 @@ checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 [[package]]
 name = "remod"
 version = "0.1.0"
+source = "git+https://github.com/Its-its/WebsiteCreator#2998c73f022f8db19318a595c8b8d6188b7cc9f0"
 dependencies = [
  "remod-macros",
  "serde",
@@ -2036,6 +2039,7 @@ dependencies = [
 [[package]]
 name = "remod-macros"
 version = "0.1.0"
+source = "git+https://github.com/Its-its/WebsiteCreator#2998c73f022f8db19318a595c8b8d6188b7cc9f0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2666,6 +2670,7 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 [[package]]
 name = "storage"
 version = "0.1.0"
+source = "git+https://github.com/Its-its/WebsiteCreator#2998c73f022f8db19318a595c8b8d6188b7cc9f0"
 dependencies = [
  "base64 0.22.1",
  "bitflags",
@@ -2721,6 +2726,7 @@ checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
 [[package]]
 name = "styles"
 version = "0.1.0"
+source = "git+https://github.com/Its-its/WebsiteCreator#2998c73f022f8db19318a595c8b8d6188b7cc9f0"
 dependencies = [
  "base64 0.22.1",
  "bitflags",
