@@ -12,7 +12,8 @@ use crate::{
 
 // Addon
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct AddonInstallResponse {
     pub instance_uuid: AddonInstanceUuid,
 }
