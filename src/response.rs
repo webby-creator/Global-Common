@@ -4,11 +4,18 @@ use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
 
 use crate::{
-    id::{FormPublicId, SchemaDataPublicId},
+    id::{AddonInstanceUuid, FormPublicId, SchemaDataPublicId},
     schema::{SchemaFieldMap, SchemaView, SchematicFieldKey, SchematicPermissions},
     upload::WebsiteUpload,
     value::SimpleValue,
 };
+
+// Addon
+
+#[derive(Deserialize)]
+pub struct AddonInstallResponse {
+    pub instance_uuid: AddonInstanceUuid,
+}
 
 // CMS
 

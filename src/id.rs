@@ -96,6 +96,7 @@ macro_rules! create_uuid {
 }
 
 create_uuid!(AddonUuid, Uuid);
+create_uuid!(AddonInstanceUuid, Uuid);
 create_uuid!(WebsitePublicId, Uuid);
 create_uuid!(SchemaDataPublicId, Uuid);
 create_uuid!(FormPublicId, Uuid);
