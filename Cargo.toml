@@ -7,9 +7,6 @@ edition = "2021"
 sqlx = ["dep:sqlx"]
 
 [dependencies]
-api = { git = "https://github.com/Its-its/WebsiteCreator" }
-storage = { git = "https://github.com/Its-its/WebsiteCreator" }
-
 serde = { version = "1.0", features = ["derive"] }
 serde_repr = "0.1"
 serde_json = "1.0"

@@ -1,8 +1,6 @@
 use std::collections::HashMap;
 
-use api::WebsitePageSettings;
 use serde::{Deserialize, Serialize};
-use storage::DisplayStore;
 use time::OffsetDateTime;
 
 use crate::{
@@ -84,20 +82,4 @@ pub struct PublicSchema {
     pub created_at: OffsetDateTime,
     pub updated_at: OffsetDateTime,
     pub deleted_at: Option<OffsetDateTime>,
-}
-
-// ADDON
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AddonPageWithDataItem {
-    pub public_id: Uuid,
-
-    pub path: String,
-    pub display_name: String,
-
-    pub settings: WebsitePageSettings,
-
-    pub content: DisplayStore,
-    pub version: i32,
 }
