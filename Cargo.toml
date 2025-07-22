@@ -16,6 +16,7 @@ num_enum = "0.7"
 time = { version = "0.3", features = ["serde-human-readable", "macros"] }
 uuid = { version = "1.8", features = ["v7", "serde"] }
 
+thiserror = "1.0"
 eyre = "0.6"
 
 sqlx = { version = "0.7", features = ["macros", "uuid"], optional = true }
