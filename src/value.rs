@@ -77,7 +77,7 @@ impl From<Number> for i64 {
     fn from(val: Number) -> Self {
         match val {
             Number::Byte(v) => v as i64,
-            Number::Integer(v) => v as i64,
+            Number::Integer(v) => v,
             Number::Float(v) => v as i64,
         }
     }
@@ -138,7 +138,7 @@ impl SimpleValue {
         if let Self::Text(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Text"))?;
+            Err(anyhow!("Unable to convert to Text"))?
         }
     }
 
@@ -146,7 +146,7 @@ impl SimpleValue {
         if let Self::Number(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Number"))?;
+            Err(anyhow!("Unable to convert to Number"))?
         }
     }
 
@@ -154,7 +154,7 @@ impl SimpleValue {
         if let Self::Boolean(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Boolean"))?;
+            Err(anyhow!("Unable to convert to Boolean"))?
         }
     }
 
@@ -162,7 +162,7 @@ impl SimpleValue {
         if let Self::DateTime(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to DateTime"))?;
+            Err(anyhow!("Unable to convert to DateTime"))?
         }
     }
 
@@ -170,7 +170,7 @@ impl SimpleValue {
         if let Self::Date(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Date"))?;
+            Err(anyhow!("Unable to convert to Date"))?
         }
     }
 
@@ -178,7 +178,7 @@ impl SimpleValue {
         if let Self::Time(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Time"))?;
+            Err(anyhow!("Unable to convert to Time"))?
         }
     }
 
@@ -186,7 +186,7 @@ impl SimpleValue {
         if let Self::ListString(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to String List"))?;
+            Err(anyhow!("Unable to convert to String List"))?
         }
     }
 
@@ -194,7 +194,7 @@ impl SimpleValue {
         if let Self::ListNumber(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Number List"))?;
+            Err(anyhow!("Unable to convert to Number List"))?
         }
     }
 
@@ -202,7 +202,7 @@ impl SimpleValue {
         if let Self::ListNumber(v) = self {
             Ok(v.into_iter().map(|v| v.into_u8()).collect::<Result<_>>()?)
         } else {
-            return Err(anyhow!("Unable to convert to Number List"))?;
+            Err(anyhow!("Unable to convert to Number List"))?
         }
     }
 

@@ -540,7 +540,7 @@ impl SchematicFieldValue {
         if let Self::Reference(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Reference"))?;
+            Err(anyhow!("Unable to convert to Reference"))?
         }
     }
 
@@ -548,7 +548,7 @@ impl SchematicFieldValue {
         if let Self::Text(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Text"))?;
+            Err(anyhow!("Unable to convert to Text"))?
         }
     }
 
@@ -556,7 +556,7 @@ impl SchematicFieldValue {
         if let Self::Number(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Number"))?;
+            Err(anyhow!("Unable to convert to Number"))?
         }
     }
 
@@ -564,7 +564,7 @@ impl SchematicFieldValue {
         if let Self::Boolean(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Boolean"))?;
+            Err(anyhow!("Unable to convert to Boolean"))?
         }
     }
 
@@ -572,7 +572,7 @@ impl SchematicFieldValue {
         if let Self::Url(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Url"))?;
+            Err(anyhow!("Unable to convert to Url"))?
         }
     }
 
@@ -580,7 +580,7 @@ impl SchematicFieldValue {
         if let Self::Email(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Email"))?;
+            Err(anyhow!("Unable to convert to Email"))?
         }
     }
 
@@ -588,7 +588,7 @@ impl SchematicFieldValue {
         if let Self::Phone(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Phone"))?;
+            Err(anyhow!("Unable to convert to Phone"))?
         }
     }
 
@@ -596,7 +596,7 @@ impl SchematicFieldValue {
         if let Self::Address(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Address"))?;
+            Err(anyhow!("Unable to convert to Address"))?
         }
     }
 
@@ -604,7 +604,7 @@ impl SchematicFieldValue {
         if let Self::DateTime(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to DateTime"))?;
+            Err(anyhow!("Unable to convert to DateTime"))?
         }
     }
 
@@ -612,7 +612,7 @@ impl SchematicFieldValue {
         if let Self::Date(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Date"))?;
+            Err(anyhow!("Unable to convert to Date"))?
         }
     }
 
@@ -620,7 +620,7 @@ impl SchematicFieldValue {
         if let Self::Time(v) = self {
             Ok(*v)
         } else {
-            return Err(anyhow!("Unable to convert to Time"))?;
+            Err(anyhow!("Unable to convert to Time"))?
         }
     }
 
@@ -628,7 +628,7 @@ impl SchematicFieldValue {
         if let Self::ListString(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to String List"))?;
+            Err(anyhow!("Unable to convert to String List"))?
         }
     }
 
@@ -636,7 +636,7 @@ impl SchematicFieldValue {
         if let Self::ListNumber(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Number List"))?;
+            Err(anyhow!("Unable to convert to Number List"))?
         }
     }
 
@@ -644,7 +644,7 @@ impl SchematicFieldValue {
         if let Self::MultiReference(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Reference List"))?;
+            Err(anyhow!("Unable to convert to Reference List"))?
         }
     }
 
@@ -652,7 +652,7 @@ impl SchematicFieldValue {
         if let Self::Array(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Object Array"))?;
+            Err(anyhow!("Unable to convert to Object Array"))?
         }
     }
 
@@ -660,7 +660,7 @@ impl SchematicFieldValue {
         if let Self::Object(v) = self {
             Ok(v)
         } else {
-            return Err(anyhow!("Unable to convert to Object"))?;
+            Err(anyhow!("Unable to convert to Object"))?
         }
     }
 }
