@@ -85,6 +85,14 @@ macro_rules! create_uuid {
             }
         }
 
+        impl TryFrom<String> for $name {
+            type Error = UuidError;
+
+            fn try_from(value: String) -> Result<Self, Self::Error> {
+                $type_of::parse_str(&value).map(Self)
+            }
+        }
+
         impl FromStr for $name {
             type Err = UuidError;
 
@@ -100,3 +108,9 @@ create_uuid!(AddonInstanceUuid, Uuid);
 create_uuid!(WebsitePublicId, Uuid);
 create_uuid!(SchemaDataPublicId, Uuid);
 create_uuid!(FormPublicId, Uuid);
+
+create_uuid!(AddonWidgetPublicId, Uuid);
+create_uuid!(AddonWidgetPanelPublicId, Uuid);
+create_uuid!(AddonCompiledPublicId, Uuid);
+create_uuid!(AddonCompiledWidgetPublicId, Uuid);
+create_uuid!(AddonCompiledPagePublicId, Uuid);
