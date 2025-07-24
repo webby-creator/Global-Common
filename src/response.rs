@@ -16,6 +16,8 @@ use crate::{
 #[serde(rename_all = "camelCase")]
 pub struct AddonInstallResponse {
     pub instance_uuid: AddonInstanceUuid,
+    // TODO: Replace with Vec<PublicPage>
+    pub new_pages: serde_json::Value,
 }
 
 // CMS
