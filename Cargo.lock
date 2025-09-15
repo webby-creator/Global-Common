@@ -388,22 +388,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "global-common"
-version = "0.1.0"
-dependencies = [
- "eyre",
- "num_enum",
- "serde",
- "serde_json",
- "serde_repr",
- "sqlx",
- "thiserror",
- "time",
- "url",
- "uuid",
-]
-
-[[package]]
 name = "hashbrown"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1689,6 +1673,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1a05d73b933a847d6cccdda8f838a22ff101ad9bf93e33684f39c1f5f0eece3d"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "webby-global-common"
+version = "0.1.0"
+dependencies = [
+ "eyre",
+ "num_enum",
+ "serde",
+ "serde_json",
+ "serde_repr",
+ "sqlx",
+ "thiserror",
+ "time",
+ "url",
+ "uuid",
 ]
 
 [[package]]
