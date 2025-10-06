@@ -1,6 +1,6 @@
 use std::fmt::{Display, Formatter, Result as FmtResult};
 
-use eyre::{anyhow, bail, Result};
+use eyre::{Result, anyhow, bail};
 use serde::{Deserialize, Serialize};
 use time::{Date, OffsetDateTime, Time};
 
@@ -280,8 +280,13 @@ impl Display for SimpleValue {
             SimpleValue::DateTime(offset_date_time) => offset_date_time.fmt(f),
             SimpleValue::Date(date) => date.fmt(f),
             SimpleValue::Time(time) => time.fmt(f),
-            SimpleValue::ListString(vec) => serde_json::to_string(vec).unwrap().fmt(f),
-            SimpleValue::ListNumber(vec) => serde_json::to_string(vec).unwrap().fmt(f),
+            SimpleValue::ListString(vec) => vec.join(", ").fmt(f),
+            SimpleValue::ListNumber(vec) => vec
+                .iter()
+                .map(|v| v.to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+                .fmt(f),
             SimpleValue::ArrayUnknown(vec) => serde_json::to_string(vec).unwrap().fmt(f),
             SimpleValue::ObjectUnknown(value) => serde_json::to_string(value).unwrap().fmt(f),
         }
