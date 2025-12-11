@@ -18,6 +18,7 @@ pub struct AddonInstallResponse {
     pub instance_uuid: AddonInstanceUuid,
     // TODO: Replace with Vec<PublicPage>
     pub new_pages: serde_json::Value,
+    pub is_update: bool,
 }
 
 // CMS
