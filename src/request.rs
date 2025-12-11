@@ -14,6 +14,10 @@ use crate::{
 pub struct CmsCreate {
     pub id: CollectionName,
     pub name: String,
+    /// Is the CMS an external one hosted on the Addons' Servers?
+    /// If true, `data` should be `None`
+    /// `columns` NEED to match the external servers' output.
+    pub is_external: bool,
     pub is_single: bool,
     #[serde(flatten)]
     pub update: CmsUpdate,
